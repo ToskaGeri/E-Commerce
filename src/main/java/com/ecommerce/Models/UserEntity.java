@@ -1,11 +1,11 @@
 package com.ecommerce.Models;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @Entity(name = "users")
 @Table
 public class UserEntity {
@@ -14,7 +14,7 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "user_id_seq")
     @SequenceGenerator(name = "user_id_seq" , sequenceName = "user_id_seq",initialValue = 1, allocationSize = 1)
     @Column(name = "ID")
-    private Long id;
+    private Long userId;
 
     @Column(name = "Username")
     private String userName;
