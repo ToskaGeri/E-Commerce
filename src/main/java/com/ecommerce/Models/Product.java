@@ -23,8 +23,8 @@ public class Product {
     @Column(name = "Product_Category")
     private String productCategory;
 
-    @Column(name = "Product_In_Stock")
-    private int productsInStock;
+    @Column(name = "In_Stock")
+    private boolean productsInStock;
 
     @Column(name = "Product_Price")
     private double productPrice;

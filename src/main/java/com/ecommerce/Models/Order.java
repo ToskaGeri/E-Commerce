@@ -30,7 +30,9 @@ public class Order {
             inverseJoinColumns = @JoinColumn(name = "Order_Line_ID"))
     private List<OrderLine> orderLines;
 
-    //1-1
-    //OrderDetails
+    @OneToOne
+    @JsonIgnore
+    @JoinColumn(name = "Order_Details_Id")
+    private OrderDetails orderDetails;
 
 }

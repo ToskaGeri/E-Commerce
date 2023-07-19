@@ -23,4 +23,5 @@ public class OrderDetails {
     @JoinColumn(name = "Order_Id")
     private Order order;
 
+    private OrderStatus orderStatus;
 }
