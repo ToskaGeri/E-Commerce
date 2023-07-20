@@ -1,8 +1,10 @@
 package com.ecommerce.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Data
 @Entity
 @Table(name = "Product")
