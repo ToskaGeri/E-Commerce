@@ -29,7 +29,7 @@ public class UserEntity {
     @Column(name = "Mobile-Nr")
     private String mobileNumber;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Cart_ID")
     private Cart cart;
 

@@ -16,15 +16,15 @@ public class Cart {
     @Column(name = "Cart_ID")
     private Long id;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JsonIgnore
     @JoinTable(
             name = "Cart_Order",
-            joinColumns = @JoinColumn(name = "Cart_ID"),
+            joinColumns = @JoinColumn(name = "Cart_ID",unique = false),
             inverseJoinColumns = @JoinColumn(name = "Order_ID"))
     private List<Order> orderList;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnore
     @JoinColumn(name = "ID")
     private UserEntity user;

@@ -17,12 +17,11 @@ public class Order {
     @Column(name = "Order_Id")
     private Long orderId;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnore
-    @JoinColumn(name = "Cart_Id")
     private Cart cart;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JsonIgnore
     @JoinTable(
             name = "Order_OrderLine",
@@ -30,7 +29,7 @@ public class Order {
             inverseJoinColumns = @JoinColumn(name = "Order_Line_ID"))
     private List<OrderLine> orderLines;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnore
     @JoinColumn(name = "Order_Details_Id")
     private OrderDetails orderDetails;
