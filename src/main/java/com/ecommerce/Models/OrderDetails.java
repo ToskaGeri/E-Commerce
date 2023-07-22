@@ -1,12 +1,14 @@
 package com.ecommerce.Models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "Order_Details")
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class OrderDetails {
 
     @Id

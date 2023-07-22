@@ -4,7 +4,7 @@ public enum OrderStatus {
 
     Pending,
 
-    Delievering,
+    Delivering,
 
-    Delievered
+    Delivered
 }

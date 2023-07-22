@@ -34,5 +34,4 @@ public class Product {
     //One to one
     //OrderLine
 
-
 }

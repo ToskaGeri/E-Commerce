@@ -2,6 +2,7 @@ package com.ecommerce.Models;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Data
 @Entity(name = "Orders")
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Order {
 
     @Id
@@ -22,7 +24,6 @@ public class Order {
     private Cart cart;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JsonIgnore
     @JoinTable(
             name = "Order_OrderLine",
             joinColumns = @JoinColumn(name = "Order_Id"),
@@ -30,7 +31,6 @@ public class Order {
     private List<OrderLine> orderLines;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JsonIgnore
     @JoinColumn(name = "Order_Details_Id")
     private OrderDetails orderDetails;
 
