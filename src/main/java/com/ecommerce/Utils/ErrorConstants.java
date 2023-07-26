@@ -17,4 +17,8 @@ public class ErrorConstants {
     public static final String ORDER_DOES_NOT_EXIST_MESSAGE = "Order does not exist!";
 
     public static final int ORDER_DOES_NOT_EXIST_CODE = 3;
+
+    public static final String USERNAME_NOT_FOUND_ERROR_MESSAGE = "Username not found!";
+
+    public static final int USERNAME_NOT_FOUND_ERROR_CODE = 4;
 }

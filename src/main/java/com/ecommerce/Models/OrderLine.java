@@ -22,4 +22,6 @@ public class OrderLine implements Serializable {
     @JoinColumn(name = "Prdouct_ID")
     private Product product;
 
+    //ALTER TABLE order_line DROP CONSTRAINT uk_17lllhr14gho4cts2j0mdewi7; Duplicate key
+
 }

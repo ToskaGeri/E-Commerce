@@ -6,9 +6,8 @@ import com.ecommerce.Service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
-@RestController("/")
+@RestController("/admin")
 public class AdminController {
 
     private final ProductService productService;
@@ -17,14 +16,16 @@ public class AdminController {
         this.productService = productService;
     }
 
-    @PostMapping("createProduct")
-    public ApiResponse<Product> createProduct(@RequestBody Product product){
-        return new ApiResponse<>(productService.createProduct(product), String.valueOf(HttpStatus.CREATED));
+    @GetMapping("/")
+    public ApiResponse<String> admin(){
+        return new ApiResponse<>("Admin", String.valueOf(HttpStatus.OK));
     }
 
-    @GetMapping("/products")
-    public ApiResponse<List<Product>> getProducts(){
-        return new ApiResponse<>(productService.getAllProducts(), String.valueOf(HttpStatus.OK));
+
+
+    @PostMapping("/createProduct")
+    public ApiResponse<Product> createProduct(@RequestBody Product product){
+        return new ApiResponse<>(productService.createProduct(product), String.valueOf(HttpStatus.CREATED));
     }
 
     @PatchMapping("/updateProduct/{id}")

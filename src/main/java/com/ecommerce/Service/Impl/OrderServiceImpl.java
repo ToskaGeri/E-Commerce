@@ -2,6 +2,7 @@ package com.ecommerce.Service.Impl;
 
 import com.ecommerce.Errors.CustomError;
 import com.ecommerce.Exceptions.OrderDoesNotExist;
+import com.ecommerce.Exceptions.ProductNotFoundException;
 import com.ecommerce.Exceptions.UserNotFoundException;
 import com.ecommerce.Models.*;
 import com.ecommerce.Repository.OrderDetailsRepository;
@@ -72,8 +73,14 @@ public class OrderServiceImpl implements OrderService {
 
         OrderLine newOrderLine = new OrderLine();
         newOrderLine.setQuantity(orderLine.getQuantity());
+
+        if(!productRepository.existsById(orderLine.getProduct().getProductId())){
+            throw new ProductNotFoundException(PRODUCT_NOT_FOUND_ERROR_MESSAGE, PRODUCT_NOT_FOUND_ERROR_CODE);
+        }
+
         Product product = productRepository.getReferenceById(orderLine.getProduct().getProductId());
         newOrderLine.setProduct(product);
+
         return newOrderLine;
     }
 
