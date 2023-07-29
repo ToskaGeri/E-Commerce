@@ -13,5 +13,5 @@ public interface OrderService {
 
     public Order addOrderLineToOrder(OrderLine orderLine, Long id);
 
-    public List<Order> getAllOrders();
+    public List<Order> getAllOrders(Cart cart);
 }

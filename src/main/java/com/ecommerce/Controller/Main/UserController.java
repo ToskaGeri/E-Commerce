@@ -10,11 +10,12 @@ import com.ecommerce.Service.OrderService;
 import com.ecommerce.Service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
-@RestController("/user/")
+@RestController
+@RequestMapping("/user")
 public class UserController {
 
     private final OrderService orderService;
@@ -29,27 +30,41 @@ public class UserController {
         this.userService = userService;
     }
 
+    private boolean checkRoleUser(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("SCOPE_USER"));
+    }
 
-    @PostMapping("order")
+    @PostMapping("/order")
     public ApiResponse<Order> createOrder(Authentication authentication){
-        UserEntity user = (UserEntity) userService.loadUserByUsername(authentication.getName());
-        return new ApiResponse<>(orderService.addOrderToCart(user.getUserId()), String.valueOf(HttpStatus.OK));
+        if(checkRoleUser()){
+            UserEntity user = (UserEntity) userService.loadUserByUsername(authentication.getName());
+            return new ApiResponse<>(orderService.addOrderToCart(user.getUserId()), String.valueOf(HttpStatus.OK));}
+        else
+            return new ApiResponse<>("Access Denied", 403);
     }
 
-    @PostMapping("createOrderLine")
+    @PostMapping("/createOrderLine")
     public ApiResponse<Order> createOrderLine(Authentication authentication, @RequestBody OrderLine orderLine){
+        if(checkRoleUser()){
+            UserEntity user = (UserEntity) userService.loadUserByUsername(authentication.getName());
+            return new ApiResponse<>(orderService.addOrderLineToOrder(orderLine, user.getUserId()), String.valueOf(HttpStatus.CREATED));
+        } else
+            return new ApiResponse<>("Access Denied", 403);
+    }
+
+    @GetMapping("/allOrders")
+    public ApiResponse<List<Order>> allOrders(Authentication authentication){
         UserEntity user = (UserEntity) userService.loadUserByUsername(authentication.getName());
-        return new ApiResponse<>(orderService.addOrderLineToOrder(orderLine, user.getUserId()), String.valueOf(HttpStatus.CREATED));
+        if(checkRoleUser()){
+            return new ApiResponse<>(orderService.getAllOrders(user.getCart()), String.valueOf(HttpStatus.OK));
+        }else
+            return new ApiResponse<>("Access Denied", 403);
     }
 
-    @GetMapping("allOrders")
-    public ApiResponse<List<Order>> allOrders(){
-        return new ApiResponse<>(orderService.getAllOrders(), String.valueOf(HttpStatus.OK));
-    }
-
-    @GetMapping("products")
+    @GetMapping("/products")
     public ApiResponse<List<Product>> getProducts(){
-        return new ApiResponse<>(productService.getAllProducts(), String.valueOf(HttpStatus.OK));
+            return new ApiResponse<>(productService.getAllProducts(), String.valueOf(HttpStatus.OK));
     }
 
 }
