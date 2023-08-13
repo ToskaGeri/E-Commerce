@@ -5,6 +5,7 @@ import com.ecommerce.Exceptions.ProductNotFoundException;
 import com.ecommerce.Models.Product;
 import com.ecommerce.Repository.ProductRepository;
 import com.ecommerce.Service.ProductService;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -22,6 +23,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getAllProducts() {
         return productRepository.findAll();
+    }
+
+    @Override
+    public List<Product> findAll(Specification<Product> specification) {
+        return productRepository.findAll(specification);
     }
 
     @Override

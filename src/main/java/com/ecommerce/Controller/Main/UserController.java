@@ -8,6 +8,8 @@ import com.ecommerce.Models.UserEntity;
 import com.ecommerce.Service.Impl.UserService;
 import com.ecommerce.Service.OrderService;
 import com.ecommerce.Service.ProductService;
+import com.ecommerce.Specification.ProductSpecification;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -65,6 +67,12 @@ public class UserController {
     @GetMapping("/products")
     public ApiResponse<List<Product>> getProducts(){
             return new ApiResponse<>(productService.getAllProducts(), String.valueOf(HttpStatus.OK));
+    }
+
+    @GetMapping("/searchProducts")
+    public ApiResponse<List<Product>> search(@RequestParam(name = "name", required = false) String name, @RequestParam(name = "category", required = false) String category){
+        Specification<Product> productSpecification = ProductSpecification.getSpec(name, category);
+        return new ApiResponse<>(productService.findAll(productSpecification), String.valueOf(HttpStatus.OK));
     }
 
 }

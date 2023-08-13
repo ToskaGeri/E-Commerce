@@ -61,6 +61,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/auth/**").permitAll();
                     auth.requestMatchers("/user/products").permitAll();
+                    auth.requestMatchers("/user/searchProducts").permitAll();
                     auth.anyRequest().authenticated();
                 });
         http
